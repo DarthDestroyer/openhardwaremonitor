@@ -31,6 +31,7 @@ namespace OpenHardwareMonitor.Hardware.Mainboard {
     P9X79,
     Rampage_Extreme,
     Rampage_II_GENE,
+    Z170_PRO_GAMING,
 
     // DFI
     LP_BI_P45_T2RS_Elite,
