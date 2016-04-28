@@ -306,6 +306,10 @@ namespace OpenHardwareMonitor.Hardware.CPU {
         }
       }
 
+	if (microarchitecture != Microarchitecture.Unknown) { 
+		base.Name = name + " (" + microarchitecture.ToString() + ")";
+	}
+
       Update();
     }
 
