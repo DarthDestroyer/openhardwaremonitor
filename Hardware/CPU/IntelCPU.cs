@@ -440,6 +440,10 @@ namespace OpenHardwareMonitor.Hardware.CPU
                 ActivateSensor(TjMaxSensor);
             }
 
+	    if (microarchitecture != Microarchitecture.Unknown) { 
+		base.Name = name + " (" + microarchitecture.ToString() + ")";
+	    }
+
             Update();
         }
 
