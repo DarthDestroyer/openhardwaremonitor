@@ -1,13 +1,22 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
+<<<<<<< HEAD
 VisualStudioVersion = 14.0.25123.0
+=======
+VisualStudioVersion = 14.0.24720.0
+>>>>>>> 2f7d225274038db2d8d5b8aa6ab6213279a97277
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitorLib", "OpenHardwareMonitorLib.csproj", "{B0397530-545A-471D-BB74-027AE456DF1A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OpenHardwareMonitor", "OpenHardwareMonitor.csproj", "{F5E0C1F7-9E9B-46F2-AC88-8C9C1C923880}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B0397530-545A-471D-BB74-027AE456DF1A} = {B0397530-545A-471D-BB74-027AE456DF1A}
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0D83798F-0577-4713-95A2-6479CABF0ABC}"
+	ProjectSection(SolutionItems) = preProject
+		WE-Palette.css = WE-Palette.css
 	EndProjectSection
 EndProject
 Global
