@@ -302,14 +302,6 @@ namespace OpenHardwareMonitor.Hardware.CPU
                 ActivateSensor(packageTemperature);
             }
 
-<<<<<<< HEAD
-	if (microarchitecture != Microarchitecture.Unknown) { 
-		base.Name = name + " (" + microarchitecture.ToString() + ")";
-	}
-
-      Update();
-    }
-=======
             busClock = new Sensor("Bus Speed", 0, SensorType.Clock, this, settings);
             coreClocks = new Sensor[coreCount];
             for (int i = 0; i < coreClocks.Length; i++)
@@ -362,7 +354,7 @@ namespace OpenHardwareMonitor.Hardware.CPU
             {
 
                 uint eax, edx;
-                if ( Ring0.Rdmsr(0x1ad, out eax, out edx) )
+                if (Ring0.Rdmsr(0x1ad, out eax, out edx))
                 {
                     var oneCore = Bitmask.GetValue(eax, 31, 24);
                     var threeCore = Bitmask.GetValue(eax, 23, 16);
@@ -373,7 +365,6 @@ namespace OpenHardwareMonitor.Hardware.CPU
                     var turbo2Core = new Sensor("Turbo Ratio (2 Core)", 51102, SensorType.Factor, this, settings);
                     var turbo3Core = new Sensor("Turbo Ratio (3 Core)", 51103, SensorType.Factor, this, settings);
                     var turbo4Core = new Sensor("Turbo Ratio (4 Core)", 51104, SensorType.Factor, this, settings);
->>>>>>> 2f7d225274038db2d8d5b8aa6ab6213279a97277
 
                     turbo1Core.Value = oneCore;
                     turbo2Core.Value = threeCore;
@@ -440,9 +431,9 @@ namespace OpenHardwareMonitor.Hardware.CPU
                 ActivateSensor(TjMaxSensor);
             }
 
-	    if (microarchitecture != Microarchitecture.Unknown) { 
-		base.Name = name + " (" + microarchitecture.ToString() + ")";
-	    }
+            if (microarchitecture != Microarchitecture.Unknown){
+                base.Name = name + " (" + microarchitecture.ToString() + ")";
+            }
 
             Update();
         }
@@ -514,7 +505,7 @@ namespace OpenHardwareMonitor.Hardware.CPU
                     float tjMax = packageTemperature.Parameters[0].Value;
                     float tSlope = packageTemperature.Parameters[1].Value;
                     packageTemperature.Value = tjMax - tSlope * deltaT;
-                    
+
                     this.TjMaxSensor.Value = tjMax;
                 }
                 else {
@@ -604,16 +595,16 @@ namespace OpenHardwareMonitor.Hardware.CPU
 
                 if (Ring0.Rdmsr(0x198, out eax, out edx))
                 {
-                    
+
                     var cvid = Bitmask.GetValue(eax, 31, 20);
                     var cfid = Bitmask.GetValue(eax, 8, 15);
 
                     _CurrentFID.Value = cfid;
                     _CurrentVID.Value = cvid;
-                    
+
                 }
             }
-            
+
         }
     }
 }
