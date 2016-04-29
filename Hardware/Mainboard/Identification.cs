@@ -108,6 +108,8 @@ namespace OpenHardwareMonitor.Hardware.Mainboard {
           return Model.Rampage_Extreme;
         case "Rampage II GENE":
           return Model.Rampage_II_GENE;
+        case "Z170 PRO GAMING":
+            return Model.Z170_PRO_GAMING;
         case "LP BI P45-T2RS Elite":
           return Model.LP_BI_P45_T2RS_Elite;
         case "LP DK P55-T3eH9":
