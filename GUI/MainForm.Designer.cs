@@ -112,6 +112,7 @@ namespace OpenHardwareMonitor.GUI {
       this.log1hMenuItem = new System.Windows.Forms.MenuItem();
       this.log2hMenuItem = new System.Windows.Forms.MenuItem();
       this.log6hMenuItem = new System.Windows.Forms.MenuItem();
+      this.hideTaskbarIconMenuItem = new System.Windows.Forms.MenuItem();
       this.splitContainer.Panel1.SuspendLayout();
       this.splitContainer.SuspendLayout();
       this.SuspendLayout();
@@ -368,6 +369,7 @@ namespace OpenHardwareMonitor.GUI {
             this.minTrayMenuItem,
             this.minCloseMenuItem,
             this.startupMenuItem,
+            this.hideTaskbarIconMenuItem,
             this.separatorMenuItem,
             this.temperatureUnitsMenuItem,
             this.plotLocationMenuItem,
@@ -670,6 +672,12 @@ namespace OpenHardwareMonitor.GUI {
       this.log6hMenuItem.RadioCheck = true;
       this.log6hMenuItem.Text = "6h";
       // 
+      // hideTaskbarIconMenuItem
+      // 
+      this.hideTaskbarIconMenuItem.Index = 4;
+      this.hideTaskbarIconMenuItem.Text = "Hide Taskbar Icon";
+      this.hideTaskbarIconMenuItem.Click += new System.EventHandler(this.hideTaskbarIconMenuItem_Clicked);
+      // 
       // MainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -770,6 +778,7 @@ namespace OpenHardwareMonitor.GUI {
     private System.Windows.Forms.MenuItem log1hMenuItem;
     private System.Windows.Forms.MenuItem log2hMenuItem;
     private System.Windows.Forms.MenuItem log6hMenuItem;
-  }
+    private System.Windows.Forms.MenuItem hideTaskbarIconMenuItem;
+    }
 }
 
