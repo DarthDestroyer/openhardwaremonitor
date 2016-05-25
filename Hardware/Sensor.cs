@@ -212,6 +212,10 @@ namespace OpenHardwareMonitor.Hardware {
       maxValue = null;
     }
 
+    public void ClearHistory() {
+      values.Clear();
+    }
+
     public IEnumerable<SensorValue> Values {
       get { return values; }
     }    
