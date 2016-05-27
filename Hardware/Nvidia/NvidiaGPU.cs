@@ -29,6 +29,7 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
     private readonly Sensor memoryUsed;
     private readonly Sensor memoryFree;
     private readonly Sensor memoryAvail;
+    private readonly Sensor currentPState;
     private readonly Control fanControl;
 
     public NvidiaGPU(int adapterIndex, NvPhysicalGpuHandle handle,
@@ -82,6 +83,8 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       memoryUsed = new Sensor("GPU Memory Used", 2, SensorType.SmallData, this, settings);
       memoryAvail = new Sensor("GPU Memory Total", 3, SensorType.SmallData, this, settings);
       control = new Sensor("GPU Fan", 0, SensorType.Control, this, settings);
+
+      currentPState = new Sensor("GPU PState", 0, SensorType.Text, this, settings);
 
       NvGPUCoolerSettings coolerSettings = GetCoolerSettings();
       if (coolerSettings.Count > 0) {
@@ -211,13 +214,20 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
         uint freeMemory = memoryInfo.Values[4];
         float usedMemory = Math.Max(totalMemory - freeMemory, 0);
         memoryFree.Value = (float)freeMemory/ 1024;
-	memoryAvail.Value = (float)totalMemory/ 1024;
-	memoryUsed.Value = usedMemory/ 1024;
+	    memoryAvail.Value = (float)totalMemory/ 1024;
+	    memoryUsed.Value = usedMemory/ 1024;
         memoryLoad.Value = 100f * usedMemory / totalMemory;
         ActivateSensor(memoryAvail);
-	ActivateSensor(memoryUsed);
-	ActivateSensor(memoryFree);
+	    ActivateSensor(memoryUsed);
+	    ActivateSensor(memoryFree);
         ActivateSensor(memoryLoad);
+      }
+
+    _NV_GPU_PERF_PSTATE_ID cpstate = _NV_GPU_PERF_PSTATE_ID.NVAPI_GPU_PERF_PSTATE_ALL;
+    if (NVAPI.NvAPI_GPU_GetCurrentPstate != null &&
+        NVAPI.NvAPI_GPU_GetCurrentPstate(handle, ref cpstate) == NvStatus.OK) {
+            currentPState.Value = (int)cpstate;
+            ActivateSensor(currentPState);
       }
     }
 

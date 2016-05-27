@@ -95,6 +95,27 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
     UNKNOWN = -1
   };
 
+  internal enum _NV_GPU_PERF_PSTATE_ID {
+    NVAPI_GPU_PERF_PSTATE_P0 = 0,
+    NVAPI_GPU_PERF_PSTATE_P1,
+    NVAPI_GPU_PERF_PSTATE_P2,
+    NVAPI_GPU_PERF_PSTATE_P3,
+    NVAPI_GPU_PERF_PSTATE_P4,
+    NVAPI_GPU_PERF_PSTATE_P5,
+    NVAPI_GPU_PERF_PSTATE_P6,
+    NVAPI_GPU_PERF_PSTATE_P7,
+    NVAPI_GPU_PERF_PSTATE_P8,
+    NVAPI_GPU_PERF_PSTATE_P9,
+    NVAPI_GPU_PERF_PSTATE_P10,
+    NVAPI_GPU_PERF_PSTATE_P11,
+    NVAPI_GPU_PERF_PSTATE_P12,
+    NVAPI_GPU_PERF_PSTATE_P13,
+    NVAPI_GPU_PERF_PSTATE_P14,
+    NVAPI_GPU_PERF_PSTATE_P15,
+    NVAPI_GPU_PERF_PSTATE_UNDEFINED = 16,
+    NVAPI_GPU_PERF_PSTATE_ALL,
+  }
+
   [StructLayout(LayoutKind.Sequential, Pack = 8)]
   internal struct NvSensor {
     public NvThermalController Controller;
@@ -259,6 +280,8 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       NvPhysicalGpuHandle gpuHandle, ref NvPStates nvPStates);
     public delegate NvStatus NvAPI_GPU_GetUsagesDelegate(
       NvPhysicalGpuHandle gpuHandle, ref NvUsages nvUsages);
+    public delegate NvStatus NvAPI_GPU_GetCurrentPstateDelegate(
+      NvPhysicalGpuHandle gpuHandle, ref _NV_GPU_PERF_PSTATE_ID nvCurrentPstate);
     public delegate NvStatus NvAPI_GPU_GetCoolerSettingsDelegate(
       NvPhysicalGpuHandle gpuHandle, int coolerIndex,
       ref NvGPUCoolerSettings nvGPUCoolerSettings);
@@ -300,6 +323,8 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       NvAPI_GPU_GetPStates;
     public static readonly NvAPI_GPU_GetUsagesDelegate
       NvAPI_GPU_GetUsages;
+    public static readonly NvAPI_GPU_GetCurrentPstateDelegate 
+      NvAPI_GPU_GetCurrentPstate;
     public static readonly NvAPI_GPU_GetCoolerSettingsDelegate
       NvAPI_GPU_GetCoolerSettings;
     public static readonly NvAPI_GPU_SetCoolerLevelsDelegate
@@ -379,6 +404,7 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
         GetDelegate(0x1BD69F49, out NvAPI_GPU_GetAllClocks);
         GetDelegate(0x60DED2ED, out NvAPI_GPU_GetPStates);
         GetDelegate(0x189A1FDF, out NvAPI_GPU_GetUsages);
+        GetDelegate(0x927DA4F6, out NvAPI_GPU_GetCurrentPstate);
         GetDelegate(0xDA141340, out NvAPI_GPU_GetCoolerSettings);
         GetDelegate(0x891FA0AE, out NvAPI_GPU_SetCoolerLevels);
         GetDelegate(0x774AA982, out NvAPI_GPU_GetMemoryInfo);
