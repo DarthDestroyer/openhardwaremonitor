@@ -175,7 +175,9 @@ namespace OpenHardwareMonitor.Hardware.CPU
                                 tjMax = GetTjMaxFromMSR();
                                 break;
                             case 0x3D: // Intel Core M-5xxx (14nm)
-                            case 0x47: // Intel i5, i7 5xxC (14nm)
+                            case 0x47: // Intel i5, i7 5xxx, Xeon E3-1200 v4 (14nm)
+                            case 0x4F: // Intel Xeon E5-26xx v4
+                            case 0x56: // Intel Xeon D-15xx
                                 microarchitecture = Microarchitecture.Broadwell;
                                 tjMax = GetTjMaxFromMSR();
                                 break;
