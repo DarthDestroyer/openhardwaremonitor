@@ -576,6 +576,9 @@ namespace OpenHardwareMonitor.GUI {
                 case SensorType.SmallData:
                   format = "{0:F0} MB";
                   break;
+                case SensorType.PState:
+                  format = "P{0:F0}";
+                  break;
                 case SensorType.Factor:
                   format = "{0:F3}";
                   break;

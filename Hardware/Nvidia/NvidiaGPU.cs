@@ -85,7 +85,7 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       memoryAvail = new Sensor("GPU Memory Total", 3, SensorType.SmallData, this, settings);
       control = new Sensor("GPU Fan", 0, SensorType.Control, this, settings);
 
-      currentPState = new Sensor("GPU PState", 0, SensorType.Text, this, settings);
+      currentPState = new Sensor("GPU PState", 0, SensorType.PState, this, settings);
 
       this.coreVoltage = new Sensor("GPU Core", 0, SensorType.Voltage, this, settings);
 
