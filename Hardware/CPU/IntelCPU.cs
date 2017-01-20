@@ -4,7 +4,7 @@
   License, v. 2.0. If a copy of the MPL was not distributed with this
   file, You can obtain one at http://mozilla.org/MPL/2.0/.
  
-  Copyright (C) 2009-2014 Michael Möller <mmoeller@openhardwaremonitor.org>
+  Copyright (C) 2009-2016 Michael Möller <mmoeller@openhardwaremonitor.org>
 	
 */
 
@@ -80,8 +80,137 @@ namespace OpenHardwareMonitor.Hardware.CPU
             return result;
         }
 
+<<<<<<< HEAD
         private float[] GetTjMaxFromMSR()
         {
+=======
+    public IntelCPU(int processorIndex, CPUID[][] cpuid, ISettings settings)
+      : base(processorIndex, cpuid, settings) {
+      // set tjMax
+      float[] tjMax;
+      switch (family) {
+        case 0x06: {
+            switch (model) {
+              case 0x0F: // Intel Core 2 (65nm)
+                microarchitecture = Microarchitecture.Core;
+                switch (stepping) {
+                  case 0x06: // B2
+                    switch (coreCount) {
+                      case 2:
+                        tjMax = Floats(80 + 10); break;
+                      case 4:
+                        tjMax = Floats(90 + 10); break;
+                      default:
+                        tjMax = Floats(85 + 10); break;
+                    }
+                    tjMax = Floats(80 + 10); break;
+                  case 0x0B: // G0
+                    tjMax = Floats(90 + 10); break;
+                  case 0x0D: // M0
+                    tjMax = Floats(85 + 10); break;
+                  default:
+                    tjMax = Floats(85 + 10); break;
+                } break;
+              case 0x17: // Intel Core 2 (45nm)
+                microarchitecture = Microarchitecture.Core;
+                tjMax = Floats(100); break;
+              case 0x1C: // Intel Atom (45nm)
+                microarchitecture = Microarchitecture.Atom;
+                switch (stepping) {
+                  case 0x02: // C0
+                    tjMax = Floats(90); break;
+                  case 0x0A: // A0, B0
+                    tjMax = Floats(100); break;
+                  default:
+                    tjMax = Floats(90); break;
+                } break;
+              case 0x1A: // Intel Core i7 LGA1366 (45nm)
+              case 0x1E: // Intel Core i5, i7 LGA1156 (45nm)
+              case 0x1F: // Intel Core i5, i7 
+              case 0x25: // Intel Core i3, i5, i7 LGA1156 (32nm)
+              case 0x2C: // Intel Core i7 LGA1366 (32nm) 6 Core
+              case 0x2E: // Intel Xeon Processor 7500 series (45nm)
+              case 0x2F: // Intel Xeon Processor (32nm)
+                microarchitecture = Microarchitecture.Nehalem;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x2A: // Intel Core i5, i7 2xxx LGA1155 (32nm)
+              case 0x2D: // Next Generation Intel Xeon, i7 3xxx LGA2011 (32nm)
+                microarchitecture = Microarchitecture.SandyBridge;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x3A: // Intel Core i5, i7 3xxx LGA1155 (22nm)
+              case 0x3E: // Intel Core i7 4xxx LGA2011 (22nm)
+                microarchitecture = Microarchitecture.IvyBridge;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x3C: // Intel Core i5, i7 4xxx LGA1150 (22nm)              
+              case 0x3F: // Intel Xeon E5-2600/1600 v3, Core i7-59xx
+                         // LGA2011-v3, Haswell-E (22nm)
+              case 0x45: // Intel Core i5, i7 4xxxU (22nm)
+              case 0x46: 
+                microarchitecture = Microarchitecture.Haswell;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x3D: // Intel Core M-5xxx (14nm)
+              case 0x47: // Intel i5, i7 5xxx, Xeon E3-1200 v4 (14nm)
+              case 0x4F: // Intel Xeon E5-26xx v4
+              case 0x56: // Intel Xeon D-15xx
+                microarchitecture = Microarchitecture.Broadwell;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x36: // Intel Atom S1xxx, D2xxx, N2xxx (32nm)
+                microarchitecture = Microarchitecture.Atom;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x37: // Intel Atom E3xxx, Z3xxx (22nm)
+              case 0x4A:
+              case 0x4D: // Intel Atom C2xxx (22nm)
+              case 0x5A:
+              case 0x5D:
+                microarchitecture = Microarchitecture.Silvermont;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              case 0x4E:
+              case 0x5E: // Intel Core i5, i7 6xxxx LGA1151 (14nm)
+                microarchitecture = Microarchitecture.Skylake;
+                tjMax = GetTjMaxFromMSR();
+                break;
+              default:
+                microarchitecture = Microarchitecture.Unknown;
+                tjMax = Floats(100);
+                break;
+            }
+          } break;
+        case 0x0F: {
+            switch (model) {
+              case 0x00: // Pentium 4 (180nm)
+              case 0x01: // Pentium 4 (130nm)
+              case 0x02: // Pentium 4 (130nm)
+              case 0x03: // Pentium 4, Celeron D (90nm)
+              case 0x04: // Pentium 4, Pentium D, Celeron D (90nm)
+              case 0x06: // Pentium 4, Pentium D, Celeron D (65nm)
+                microarchitecture = Microarchitecture.NetBurst;
+                tjMax = Floats(100);
+                break;
+              default:
+                microarchitecture = Microarchitecture.Unknown;
+                tjMax = Floats(100);
+                break;
+            }
+          } break;
+        default:
+          microarchitecture = Microarchitecture.Unknown;
+          tjMax = Floats(100);
+          break;
+      }
+
+      // set timeStampCounterMultiplier
+      switch (microarchitecture) {
+        case Microarchitecture.NetBurst:
+        case Microarchitecture.Atom:
+        case Microarchitecture.Core: {
+>>>>>>> refs/remotes/openhardwaremonitor/master
             uint eax, edx;
             float[] result = new float[coreCount];
             for (int i = 0; i < coreCount; i++)

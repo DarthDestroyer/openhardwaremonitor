@@ -24,6 +24,7 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
     private readonly Sensor fan;
     private readonly Sensor[] clocks;
     private readonly Sensor[] loads;
+    private readonly Sensor coreVoltage;
     private readonly Sensor control;
     private readonly Sensor memoryLoad;
     private readonly Sensor memoryUsed;
@@ -85,6 +86,8 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       control = new Sensor("GPU Fan", 0, SensorType.Control, this, settings);
 
       currentPState = new Sensor("GPU PState", 0, SensorType.Text, this, settings);
+
+      this.coreVoltage = new Sensor("GPU Core", 0, SensorType.Voltage, this, settings);
 
       NvGPUCoolerSettings coolerSettings = GetCoolerSettings();
       if (coolerSettings.Count > 0) {
@@ -223,11 +226,16 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
         ActivateSensor(memoryLoad);
       }
 
-    _NV_GPU_PERF_PSTATE_ID cpstate = _NV_GPU_PERF_PSTATE_ID.NVAPI_GPU_PERF_PSTATE_ALL;
-    if (NVAPI.NvAPI_GPU_GetCurrentPstate != null &&
-        NVAPI.NvAPI_GPU_GetCurrentPstate(handle, ref cpstate) == NvStatus.OK) {
-            currentPState.Value = (int)cpstate;
+      _NV_GPU_PERF_PSTATE_ID current_pstate = _NV_GPU_PERF_PSTATE_ID.NVAPI_GPU_PERF_PSTATE_ALL;
+      if (NVAPI.NvAPI_GPU_GetCurrentPstate != null &&
+        NVAPI.NvAPI_GPU_GetCurrentPstate(handle, ref current_pstate) == NvStatus.OK) {
+            currentPState.Value = (int)current_pstate;
             ActivateSensor(currentPState);
+      }
+
+      if (1==1) {
+          coreVoltage.Value = 1.5f;
+          ActivateSensor(coreVoltage);
       }
     }
 

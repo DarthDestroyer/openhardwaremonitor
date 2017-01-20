@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 ﻿################################################################################
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
@@ -5,3 +6,9 @@
 /.vs/OpenHardwareMonitor/v14
 /Bin/Debug
 /obj/Debug
+=======
+*.user
+*.suo
+/Bin
+/Obj
+>>>>>>> refs/remotes/openhardwaremonitor/master

@@ -235,7 +235,7 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
 
     public const int MAX_THERMAL_SENSORS_PER_GPU = 3;
     public const int MAX_CLOCKS_PER_GPU = 0x120;
-    public const int MAX_PSTATES_PER_GPU = 8;
+    public const int MAX_PSTATES_PER_GPU = 16;
     public const int MAX_USAGES_PER_GPU = 33;
     public const int MAX_COOLER_PER_GPU = 20;
     public const int MAX_MEMORY_VALUES_PER_GPU = 5;
@@ -261,7 +261,6 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
     private delegate NvStatus NvAPI_InitializeDelegate();
     private delegate NvStatus NvAPI_GPU_GetFullNameDelegate(
       NvPhysicalGpuHandle gpuHandle, StringBuilder name);
-
     public delegate NvStatus NvAPI_GPU_GetThermalSettingsDelegate(
       NvPhysicalGpuHandle gpuHandle, int sensorIndex,
       ref NvGPUThermalSettings nvGPUThermalSettings);
@@ -300,13 +299,14 @@ namespace OpenHardwareMonitor.Hardware.Nvidia {
       out uint revisionId, out uint extDeviceId);
 
     private static readonly bool available;
-    private static readonly nvapi_QueryInterfaceDelegate nvapi_QueryInterface;
-    private static readonly NvAPI_InitializeDelegate NvAPI_Initialize;
+    private static readonly nvapi_QueryInterfaceDelegate 
+      nvapi_QueryInterface;
+    private static readonly NvAPI_InitializeDelegate 
+      NvAPI_Initialize;
     private static readonly NvAPI_GPU_GetFullNameDelegate
       _NvAPI_GPU_GetFullName;
     private static readonly NvAPI_GetInterfaceVersionStringDelegate
       _NvAPI_GetInterfaceVersionString;
-
     public static readonly NvAPI_GPU_GetThermalSettingsDelegate
       NvAPI_GPU_GetThermalSettings;
     public static readonly NvAPI_EnumNvidiaDisplayHandleDelegate

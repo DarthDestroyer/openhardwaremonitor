@@ -51,7 +51,11 @@ namespace OpenHardwareMonitor.Hardware.HDD {
       new SmartAttribute(0xCA, SmartNames.ExceptionModeStatus),
       new SmartAttribute(0xEB, SmartNames.PowerRecoveryCount),
       new SmartAttribute(0xF1, SmartNames.TotalLBAWritten, 
+<<<<<<< HEAD
         (byte[] r, byte v, IReadOnlyArray<IParameter> p) 
+=======
+        (byte[] r, byte v, IReadOnlyArray<IParameter> p)
+>>>>>>> refs/remotes/openhardwaremonitor/master
           => { return RawToInt(r, v, p) * 512 / 1024 / 1024 / 1024; },
         SensorType.Data, 0, SmartNames.TotalLBAWritten)
     };
